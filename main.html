@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Acronym Checker</title>
+</head>
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="centered-heading">
+        <h1>EToH Acronym Checker</h1>
+      </div>
+  
+  <div class="centered-heading">
+    <button onclick="checkAcronym()">Check</button>
+    <input type="text" id="tacro" placeholder="To...">
+  </div>
+
+  <div class="centered-answer">
+    <p id="result"></p>
+  </div>
+
+  <script>
+    // Example array of existing acronyms
+    const acro = [
+  "NEAT", "ToAST", "ToA", "ToM", "ToNI", "ToH", "ToK", "ToKY", "ToS", "ToSP", "ToR", "ToIE", "CoLS", "ToTS", "TT", "R1TR",
+  "MAT", "ToPS", "ToBH", "ToOH", "ToCH", "ToFaF", "ToT", "ToDD", "ToSD", "ToTF", "ToES", "CoWS", "ToDC", "R2TR",
+  "ToFT", "ToIC", "ToAT", "ToDS", "ToF", "ToWER", "ToSI", "ToWH", "ToLD", "ToD", "CoHaD", "TAT", "ToC", "R3TR",
+  "ToSH", "ToGG", "ToTM", "ToE", "ToL", "ToLL", "WBAT", "ToDaD", "ToHF", "CoU", "ToO", "ToNP", "ToCN", "ToVS", "ToI", "R4TR",
+  "ToNV", "ToTR", "LAT", "ToRS", "ToDM", "ToOC", "ToFF", "ToEA", "ToTH", "ToGaH", "ToFO", "CoCR", "ToIB", "ToFN", "R1-4MTR", "R5TR",
+  "ToFJ", "ToEP", "ToRR", "ToTI", "ToADF", "ToISC", "ToDR", "ToFS", "FNAT", "ToN", "CoSR", "ToSM", "ToIM", "R6TR",
+  "ToRB", "FFAST", "ToCC", "ToFL", "ToDA", "ToOOO", "ToNGUE", "ToNED", "ToU", "CoTE", "ToYV", "ToEH", "ToTB", "ToER", "R7TR",
+  "ToSSS", "ToNBA", "ToVF", "ToVA", "ToAA", "CoCHS", "ToUS", "ToIII", "ToVE", "ToMT", "ToSO", "ToEI", "ToGF", "R8TR",
+  "ToGO", "ToBBB", "ToQT", "CoL", "ToPP", "ToHA", "ToBT", "ToCA", "ToFaCT", "ToBK", "ToJE", "ToNS", "ToAM", "ToCR", "ToCP", "R9TR",
+  "SoMD", "ToJGF", "SoLW", "SoP", "TIPAT", "SoUR", "ToII", "SoWP", "ToV", "ToTC", "SoC", "SoHP", "ToIS", "ToDE", "CoWN", "SoTP", "ToMB", "FRTR",
+  "SoBJ", "SoDS", "SoIF", "SoO", "SoN", "SoOA", "SoGP", "SoFF", "SoLIQ", "SoVV", "CoBG", "SoFW", "NEAF", "ToPA", "SoBA", "GoETR",
+  "SoRIS", "SoRA", "ToAI", "SoD", "ToTINT", "SoGL", "SoXA", "SoWG", "ToSW", "SoII", "ToTD", "SoMA", "SoMB", "SATR",
+  "ToEW", "ToTST", "CoIS", "ToLOZ", "ToDL", "ToOO", "ToWaW", "ToCS", "ToTEM", "ToTJ", "ToUH", "LRTR",
+  "ToFZ", "ToVT", "ToCWC", "ToWMT", "ToSR", "ToWIA", "ToWoW", "ToLLL", "ToFSF", "ToCB", "ToRH", "ToMD", "ToWF", "ATTR",
+  "ToLR", "ToYLFW", "ToPLA", "SoALD", "SoBC", "SoTMN", "SoTMM", "ToTUTU", "ToIR", "SoIB", "ToADE", "ToWR", "ToHWH", "ToFFEE", "SoCV", "SoFB", "TSATR",
+  "ToZD", "ToPHaT", "ToAD", "ToP", "ToHS", "ToMH", "ToCO", "ToYS", "ToAV", "SAT", "ToWEL", "ToUT", "ToED", "ToRNI", "CoP", "ToZ", "ToTL", "Z1TR",
+  "ToVR", "ToSA", "ToGLA", "ToTA", "ToUD", "ToDaC", "ToPF", "ToSaS", "CoGS", "ToEE", "ToAZ", "ToTT", "ToGD", "ToCM", "ToDT", "Z2TR",
+  "ToSFU", "ToOD", "ToBB", "ToCOF", "ToCCC", "ToX", "ToDH", "ToMA", "ToCaS", "ToRCH", "CoTS", "ToMC", "ToQC", "ToIO", "ToCaUP", "ToHH", "Z3TR",
+  "ToFSC", "ToAC", "ToFaST", "ToUID", "ToWW", "ToET", "ToPC", "ToMIM", "ToSS", "ToDDD", "ToFG", "CoQ", "ToTV", "ToIF", "ToAAA", "Z4TR",
+  "ToST", "ToSSSS", "ToFV", "ToBS", "ToSTS", "ToUE", "ToHK", "ToHE", "ToGT", "CoCE", "ToAO", "ToBaBT", "ToZA", "ToPZ", "ToAR", "Z5TR",
+  "ToFD", "ToRC", "ToCF", "ToBIBI", "ToAS", "ToHM", "CoTaW", "ToHL", "ToW", "ToAF", "ToMO", "ToBC", "ToTDA", "ToMM", "Z6TR",
+  "ToJ", "ToRW", "ToSV", "ToBR", "ToDF", "ToGM", "ToCE", "ToWS", "ToY", "ToCMC", "ToSaPS", "ToUI", "CoACT", "ToFM", "ToUA", "Z7TR",
+  "ToMIT", "ToCT", "ToATD", "ToXM", "ToGV", "ToFR", "ToON", "ToNEF", "ToML", "ToOV", "CoPE", "ToTaSM", "ToNR", "ToRER", "ToAE", "ToDIE", "Z8TR",
+  "ToABCD", "ToDTD", "ToLS", "ToBL", "ToSRD", "ToNN", "ToFCB", "ToFU", "ToEC", "ToBBBB", "ToMF", "CoIC", "ToVITE", "ToHR", "ToPB", "ToWWW", "ToEMP", "Z9TR",
+  "ToCZ", "ToRL", "ToIT", "ToVV", "ToETU", "ToMN", "ToOTTF", "ToTDF", "ToPI", "ToPL", "CoOTWI", "ToRoMW", "ToTHT", "ToBP", "ToCaV", "ToRT", "Z10TR",
+  "SoOK", "SoBT", "SoAS", "SoRO", "SoAP", "SoTC", "SoME", "SoCA", "SoWC", "SoMC", "ToIA", "AATR",
+  "PAT", "SoMM", "SoAU", "SoSIS", "SoAR", "SoHS", "SoDI", "ToCI", "SoUC", "SoCF", "ToTTT", "SoUB", "SoDD", "PATR"
+]
+
+    function checkAcronym() {
+      const tacro = document.getElementById("tacro").value;
+      const result = document.getElementById("result");
+
+      if (acro.includes(tacro)) {
+        result.textContent = "Think of something else you stupid plagiariser";
+      } else {
+        result.textContent = "This acronym is not taken :3";
+      }
+    }
+  </script>
+</body>
+</html>

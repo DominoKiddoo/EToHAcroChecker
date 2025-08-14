@@ -1,0 +1,19 @@
+.centered-heading {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically (if container has height) */
+    height: 200px; /* Example height, adjust as needed */
+    text-align: center;
+    font-size: 300;
+  }
+  
+
+
+.centered-answer {
+display: flex;
+justify-content: center; /* Centers horizontally */
+align-items: center; /* Centers vertically (if container has height) */
+height: 200px; /* Example height, adjust as needed */
+text-align: center;
+font-size: 100px;
+}
