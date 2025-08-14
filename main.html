@@ -9,9 +9,10 @@
 </head>
 <body>
     <div class="centered-heading">
-        <h1>EToH Acronym Checker</h1>
-      </div>
-  
+        <h1>EToH Acronym Checker <br>
+        
+        </div>
+    
   <div class="centered-heading">
     <button onclick="checkAcronym()">Check</button>
     <input type="text" id="tacro" placeholder="To...">
@@ -20,7 +21,9 @@
   <div class="centered-answer">
     <p id="result"></p>
   </div>
-
+  <div class=last-u>
+    <p>Last Updated: 14/8/2025</p>
+  </div>
   <script>
     // Example array of existing acronyms
     const acro = [
@@ -52,6 +55,8 @@
   "SoOK", "SoBT", "SoAS", "SoRO", "SoAP", "SoTC", "SoME", "SoCA", "SoWC", "SoMC", "ToIA", "AATR",
   "PAT", "SoMM", "SoAU", "SoSIS", "SoAR", "SoHS", "SoDI", "ToCI", "SoUC", "SoCF", "ToTTT", "SoUB", "SoDD", "PATR"
 ]
+
+
 
     function checkAcronym() {
       const tacro = document.getElementById("tacro").value;
